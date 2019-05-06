@@ -10,10 +10,11 @@ def get_data(sector = 'total', period = 5):
     Every row of Y is 6th day data of all the companies, there are 749 rows
     '''
     data = np.array(pd.read_csv('csvFiles/sp500_%s_close.csv' % sector, index_col = 0))
+    data = data[:,~np.isnan(data).any(axis = 0)]
 #     X = np.array([data[x:x + period,:].flatten('F') for x in range(0, data.shape[0] - 5)])
 #     Y = np.array([data[x,:].flatten() for x in range(period, data.shape[0])])
-    X = np.array([data[x:x + period,:].flatten('F') for x in range(0, data.shape[0] - 5 - 1)])
-    X_test = np.array([data[x:x + period,:].flatten('F') for x in range(data.shape[0] - 6, data.shape[0] - 5)])
+    X = np.array([data[x:x + period,:].flatten() for x in range(0, data.shape[0] - 5 - 1)])
+    X_test = np.array([data[x:x + period,:].flatten() for x in range(data.shape[0] - 6, data.shape[0] - 5)])
     Y = np.array([data[x,:].flatten() for x in range(period, data.shape[0] - 1)])
     Y_test = np.array([data[x,:].flatten() for x in range(data.shape[0] - 1, data.shape[0])])
 
@@ -21,6 +22,7 @@ def get_data(sector = 'total', period = 5):
 
 if __name__ == '__main__':
     x, y, x0, x1, y1, xt, yt = get_data()
+    # x, y, x0, x1, y1, xt, yt = get_data('Energy_dj')
     print(x)
     print(y)
     print(x.shape)

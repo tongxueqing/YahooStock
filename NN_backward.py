@@ -5,7 +5,7 @@ import NN_forward
 import matplotlib.pyplot as plt
 
 STEPS = 40000
-BATCH_SIZE = 30
+BATCH_SIZE = 70
 LEARNING_RATE_BASE = 0.001
 LEANING_RATE_DECAY = 0.999
 REGULARIZER = 0.01
@@ -47,12 +47,12 @@ def backward():
             sess.run(train_step, feed_dict = {x: X[start:end], y: Y[start:end]})
             if i % 2000 == 0:
                 loss_v = sess.run(loss_total, feed_dict = {x: X, y: Y})
-                print('After %d steps, loss is %.2f' % (i, loss_v))
+                print('After %d steps, loss is %f' % (i, loss_v))
         y_estimate = sess.run(y_hat, feed_dict = {x: X_test}) 
     plt.figure(figsize = (16, 9))
-    plt.plot(range(len(y_estimate)), y_estimate, col = 'red', label = 'Estimate')
+    plt.plot(range(len(y_estimate)), y_estimate, color = 'red', label = 'Estimate')
     Y_test = Y_test.tolist()
-    plt.plot(range(len(Y_test)), Y_test, col = 'blue', label = 'RealData')
+    plt.plot(range(len(Y_test)), Y_test, color = 'blue', label = 'RealData')
     plt.legend()
     plt.xlabel('Companies')
     plt.ylabel('Adj Close')

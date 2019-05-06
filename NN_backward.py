@@ -14,9 +14,9 @@ def backward():
     backpropagation function
     learn the weight matrices (w1, w2) 
     '''
-    X, Y = NN_input.get_data()
-    x = tf.placeholder(tf.float32, shape = (None, X.shape[1]))
-    y = tf.placeholder(tf.float32, shape = (None, Y.shape[1]))
+    X, Y, sample_num, input_num, output_num = NN_input.get_data()
+    x = tf.placeholder(tf.float32, shape = (None, input_num))
+    y = tf.placeholder(tf.float32, shape = (None, output_num))
     # make fake inputs to build the pipeline and add the real input at last
 
     y_hat = NN_forward.forward(x, REGULARIZER)
@@ -27,7 +27,7 @@ def backward():
     learning_rate = tf.train.exponential_decay(
             LEARNING_RATE_BASE,
             global_step,
-            X.shape[0] / BATCH_SIZE
+            sample_num / BATCH_SIZE
             staircase = True)
     # set the decay of learning rate
 
@@ -40,6 +40,14 @@ def backward():
         init_op = tf.global_variables_initializer()
         sess.run(init_op)
         for i in range(STEPS):
-            start = (i * BATCH_SIZE) % X.shape
+            start = (i * BATCH_SIZE) % sample_num
             end = 
             sess.run(train_step, feed_dict = {x: X[start:end], y = Y[start:end]})
+            if i % 2000 == 0:
+                loss_v = sess.run(loss_total, feed_dict = {x: X, y: Y})
+                print('After %d steps, loss is %.2f' % (i, loss_v))
+        y_estimate = sess.run(y_hat, feed_dict = {x: X_test}) 
+
+
+if __name__ == '__main__':
+    backward()

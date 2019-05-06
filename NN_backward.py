@@ -2,6 +2,8 @@ import tensorflow as tf
 import numpy as np
 import NN_input
 import NN_forward
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 STEPS = 6000
@@ -49,13 +51,9 @@ def backward():
                 loss_v = sess.run(loss_total, feed_dict = {x: X, y: Y})
                 print('After %d steps, loss is %f' % (i, loss_v))
         y_estimate = sess.run(y_hat, feed_dict = {x: X_test}) 
-    print(type(y_estimate[0]))
-    print(type(Y_test[0]))
-    print(y_estimate[0])
-    print(Y_test[0])
     plt.figure()
-    plt.plot(range(len(y_estimate[0])), y_estimate[0], color = 'red', label = 'Estimate')
-    plt.plot(range(len(Y_test[0])), Y_test, color = 'blue', label = 'RealData')
+    plt.plot(y_estimate[0].tolist(), color = 'red', label = 'Estimate')
+    plt.plot(Y_test[0].tolist(), color = 'blue', label = 'RealData')
     plt.legend()
     plt.xlabel('Companies')
     plt.ylabel('Adj Close')

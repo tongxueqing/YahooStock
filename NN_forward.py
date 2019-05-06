@@ -31,8 +31,8 @@ def forward(x, y, input_num, output_num, regularizer, hidden_num = 500):
     y1 = tf.nn.relu(tf.matmul(x, w1) + b1)
     # hidden layer calculation
 
-    w2 = get_weight([hidden, output_num], regularizer)
-    b2 = get_bias([output])
+    w2 = get_weight([hidden_num, output_num], regularizer)
+    b2 = get_bias([output_num])
     y = tf.matmul(y1, w2) + b2
     # output layer calculation
 

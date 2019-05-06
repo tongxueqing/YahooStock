@@ -29,6 +29,7 @@ def backward():
             LEARNING_RATE_BASE,
             global_step,
             sample_num / BATCH_SIZE,
+            LEANING_RATE_DECAY,
             staircase = True)
     # set the decay of learning rate
 

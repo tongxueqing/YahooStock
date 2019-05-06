@@ -6,7 +6,7 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-STEPS = 6000
+STEPS = 60000
 BATCH_SIZE = 70
 LEARNING_RATE_BASE = 0.001
 LEANING_RATE_DECAY = 0.999
@@ -51,9 +51,9 @@ def backward():
                 loss_v = sess.run(loss_total, feed_dict = {x: X, y: Y})
                 print('After %d steps, loss is %f' % (i, loss_v))
         y_estimate = sess.run(y_hat, feed_dict = {x: X_test}) 
-    plt.figure()
-    plt.plot(y_estimate[0].tolist(), color = 'red', label = 'Estimate')
-    plt.plot(Y_test[0].tolist(), color = 'blue', label = 'RealData')
+    plt.figure(figsize = (16, 9))
+    plt.scatter(range(output_num), y_estimate[0].tolist(), color = 'red', label = 'Estimate')
+    plt.scatter(range(output_num), Y_test[0].tolist(), color = 'blue', label = 'RealData')
     plt.legend()
     plt.xlabel('Companies')
     plt.ylabel('Adj Close')

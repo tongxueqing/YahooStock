@@ -8,7 +8,7 @@ def get_weight(shape, regularizer):
     generate for each layer
     '''
     w = tf.Variable(tf.random_normal(shape), dtype = tf.float32)
-    tf.add_to_collection('losses', tf.contrib.layers.12_regularizer(regularizer(w))) # add w matrix to regularizer: Regularization is to prevent overfitting
+    tf.add_to_collection('losses', tf.contrib.layers.l2_regularizer(regularizer)(w)) # add w matrix to regularizer: Regularization is to prevent overfitting
     return w
 
 def get_bias(shape):
@@ -19,18 +19,16 @@ def get_bias(shape):
     b = tf.Variable(tf.constant(0.01, shape = shape))
     return b
 
-def forward(x, y, hidden_layer = 500, regularizer):
+def forward(x, y, input_num, output_num, regularizer, hidden_num = 500):
     '''
     NN feed forward part
     first try:
         input        hidden       output
         945 nodes -> 500 nodes -> 199 nodes
     '''
-    input_num = x.shape[1]
-    output_num = y.shape[1]
-    w1 = get_weight([input_num, hidden], regularizer)
-    b1 = get_bias([hidden])
-    y1 = tf.nn.relu(tf.matul(x, w1) + b1)
+    w1 = get_weight([input_num, hidden_num], regularizer)
+    b1 = get_bias([hidden_num])
+    y1 = tf.nn.relu(tf.matmul(x, w1) + b1)
     # hidden layer calculation
 
     w2 = get_weight([hidden, output_num], regularizer)

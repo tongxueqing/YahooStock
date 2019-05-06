@@ -20,7 +20,7 @@ def backward():
     y = tf.placeholder(tf.float32, shape = (None, output_num))
     # make fake inputs to build the pipeline and add the real input at last
 
-    y_hat = NN_forward.forward(x, REGULARIZER)
+    y_hat = NN_forward.forward(x, y, input_num, output_num, REGULARIZER)
     # estimation of y
 
     global_step = tf.Variable(0, trainable = False)

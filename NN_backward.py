@@ -1,3 +1,10 @@
+'''
+Todo:
+    1. get weight and bias from training
+    2. more comments
+    3. more test result
+'''
+
 import tensorflow as tf
 import numpy as np
 import NN_input

@@ -6,7 +6,7 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-STEPS = 60000
+STEPS = 80000
 BATCH_SIZE = 70
 LEARNING_RATE_BASE = 0.001
 LEANING_RATE_DECAY = 0.999
@@ -58,7 +58,7 @@ def backward():
     plt.xlabel('Companies')
     plt.ylabel('Adj Close')
     plt.title('Test of Estimate')
-    plt.savefig('TestEnstimate.pdf')
+    plt.savefig('TestEnstimate.png')
 
 if __name__ == '__main__':
     backward()

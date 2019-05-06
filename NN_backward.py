@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import NN_input
 import NN_forward
+import matplotlib.pyplot as plt
 
 STEPS = 40000
 BATCH_SIZE = 30
@@ -14,7 +15,7 @@ def backward():
     backpropagation function
     learn the weight matrices (w1, w2) 
     '''
-    X, Y, sample_num, input_num, output_num = NN_input.get_data()
+    X, Y, sample_num, input_num, output_num, X_test, Y_test = NN_input.get_data()
     x = tf.placeholder(tf.float32, shape = (None, input_num))
     y = tf.placeholder(tf.float32, shape = (None, output_num))
     # make fake inputs to build the pipeline and add the real input at last
@@ -47,7 +48,15 @@ def backward():
                 loss_v = sess.run(loss_total, feed_dict = {x: X, y: Y})
                 print('After %d steps, loss is %.2f' % (i, loss_v))
         y_estimate = sess.run(y_hat, feed_dict = {x: X_test}) 
-
+    plt.figure(figsize = (16, 9))
+    plt.plot(range(len(y_estimate)), y_estimate, col = 'red', label = 'Estimate')
+    Y_test = Y_test.tolist()
+    plt.plot(range(len(Y_test)), Y_test, col = 'blue', label = 'RealData')
+    plt.legend()
+    plt.xlabel('Companies')
+    plt.ylabel('Adj Close')
+    plt.title('Test of Estimate')
+    plt.savefig('TestEnstimate.pdf')
 
 if __name__ == '__main__':
     backward()

@@ -20,6 +20,10 @@ def get_data(sector = 'total', period = 5):
     return X, Y, X.shape[0], X.shape[1], Y.shape[1], X_test, Y_test
 
 if __name__ == '__main__':
-    x, y = get_data()
+    x, y, x0, x1, y1, xt, yt = get_data()
+    print(x)
+    print(y)
     print(x.shape)
     print(y.shape)
+    print(type(x))
+    print(type(y))

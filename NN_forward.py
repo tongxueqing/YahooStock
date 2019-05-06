@@ -35,5 +35,4 @@ def forward(x, y, input_num, output_num, regularizer, hidden_num = 500):
     b2 = get_bias([output_num])
     y = tf.matmul(y1, w2) + b2
     # output layer calculation
-
     return y

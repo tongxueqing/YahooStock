@@ -29,7 +29,7 @@ def backward():
     y = tf.placeholder(tf.float32, shape = (None, output_num))
     # make fake inputs to build the pipeline and add the real input at last
 
-    y_hat = NN_forward.forward(x, y, input_num, output_num, REGULARIZER)
+    y_hat, w1, w2 = NN_forward.forward(x, y, input_num, output_num, REGULARIZER)
     # estimation of y
 
     global_step = tf.Variable(0, trainable = False)
@@ -58,6 +58,9 @@ def backward():
                 loss_v = sess.run(loss_total, feed_dict = {x: X, y: Y})
                 print('After %d steps, loss is %f' % (i, loss_v))
         y_estimate = sess.run(y_hat, feed_dict = {x: X_test}) 
+        W1, W2 = sess.run([w1, w2])
+    np.savetxt('./weights/W1.csv', W1, delimiter = ",")
+    np.savetxt('./weights/W2.csv', W2, delimiter = ",")
     plt.figure(figsize = (16, 9))
     plt.scatter(range(output_num), y_estimate[0].tolist(), color = 'red', label = 'Estimate')
     plt.scatter(range(output_num), Y_test[0].tolist(), color = 'blue', label = 'RealData')

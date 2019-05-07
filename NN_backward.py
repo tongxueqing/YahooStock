@@ -27,10 +27,10 @@ def backward():
     X, Y, sample_num, input_num, output_num, X_test, Y_test = NN_input.get_data()
     x = tf.placeholder(tf.float32, shape = (None, input_num))
     y = tf.placeholder(tf.float32, shape = (None, output_num))
-    # make fake inputs to build the pipeline and add the real input at last
+    # make FAKE inputs to build the pipeline and add the real input at last
 
     y_hat, w1, w2 = NN_forward.forward(x, y, input_num, output_num, REGULARIZER)
-    # estimation of y
+    # estimation of y, and the weight matrix and the using the FAKE variable
 
     global_step = tf.Variable(0, trainable = False)
     # assign the STEP counter
@@ -45,15 +45,21 @@ def backward():
     loss_mse = tf.reduce_mean(tf.square(y_hat - y))
     loss_total = loss_mse + tf.add_n(tf.get_collection('losses'))
     # mean of square error
+    # the loss function that will be optimize
     train_step = tf.train.AdamOptimizer(learning_rate).minimize(loss_total)
+    # every train step is to minimize the loss and change parameters by learning rate
 
     with tf.Session() as sess:
         init_op = tf.global_variables_initializer()
         sess.run(init_op)
+        # initialize all variables
         for i in range(STEPS):
             start = (i * BATCH_SIZE) % sample_num
             end = start + BATCH_SIZE
+            # set this step's start and end of training data
+            # every time input data with `BATCH_SIZE`
             sess.run(train_step, feed_dict = {x: X[start:end], y: Y[start:end]})
+            # run the train_step
             if i % 2000 == 0:
                 loss_v = sess.run(loss_total, feed_dict = {x: X, y: Y})
                 print('After %d steps, loss is %f' % (i, loss_v))

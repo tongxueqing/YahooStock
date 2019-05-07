@@ -73,7 +73,7 @@ def backward():
     error_rate = [np.mean(abs(Y_test[i] - y_estimate[i]) / Y_test[i]) for i in range(Y_test.shape[0])]
     plt.figure()
     plt.scatter(range(len(error_rate)), error_rate)
-    plt.xticks(['Day%d' % (i + 1) for i in range(len(error_rate))])
+    plt.xlabel('Days')
     plt.ylabel('Average Error Rate of Included Companies')
     plt.savefig('./PNGresults/ErrorRate.png')
     # for i in range(Y_test.shape[0]):

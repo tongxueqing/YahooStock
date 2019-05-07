@@ -41,3 +41,21 @@ def forward(x, y, input_num, output_num, regularizer, hidden_num = 500):
     # (749 * 500) x (500 * 198) -> (749 * 199) 
 
     return y, w1, w2, b1, b2
+
+def forward_2(x, y, input_num, output_num, regularizer, hidden_num = 700, hidden_num2 = 400):
+    w1 = get_weight([input_num, hidden_num], regularizer)
+    b1 = get_bias([hidden_num])
+    y1 = tf.nn.relu(tf.matmul(x, w1) + b1)
+
+    w2 = get_weight([hidden_num, hidden_num2], regularizer)
+    b2 = get_bias([hidden_num2])
+    y2 = tf.nn.relu(tf.matmul(y1, w2) + b2)
+
+    w3 = get_weight([hidden_num2, output_num], regularizer)
+    b3 = get_bias([output_num])
+    y = tf.matmul(y2, w3) + b3
+    # output layer calculation
+    # Y1 x W2 -> Y
+    # (749 * 500) x (500 * 198) -> (749 * 199) 
+
+    return y, w1, w2, b1, b2

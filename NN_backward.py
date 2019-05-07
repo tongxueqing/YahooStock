@@ -13,7 +13,7 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-STEPS = 80000
+STEPS = 40000
 BATCH_SIZE = 70
 LEARNING_RATE_BASE = 0.001
 LEANING_RATE_DECAY = 0.999
@@ -70,15 +70,21 @@ def backward():
     np.savetxt('./weights/W2.csv', W2, delimiter = ",")
     np.savetxt('./weights/B1.csv', B1, delimiter = ",")
     np.savetxt('./weights/B2.csv', W2, delimiter = ",")
-    for i in range(Y_test.shape[0]):
-        plt.figure(figsize = (16, 9))
-        plt.scatter(range(output_num), y_estimate[i].tolist(), color = 'red', label = 'Estimate')
-        plt.scatter(range(output_num), Y_test[i].tolist(), color = 'blue', label = 'RealData')
-        plt.legend()
-        plt.xlabel('Companies')
-        plt.ylabel('Adj Close')
-        plt.title('Test of Estimate Day %d' % i)
-        plt.savefig('./PNGresults/TestEstimate_day%d.png' % i)
+    error_rate = [np.mean(abs(Y_test[i] - y_estimate[i]) / Y_test[i]) for i in range(Y_test.shape[0])]
+    plt.figure()
+    plt.scatter(range(len(error_rate)), error_rate)
+    plt.xticks(['Day%d' % (i + 1) for i in range(len(error_rate))])
+    plt.ylabel('Average Error Rate of Included Companies')
+    plt.savefig('./PNGresults/ErrorRate.png')
+    # for i in range(Y_test.shape[0]):
+    #     plt.figure(figsize = (16, 9))
+    #     plt.scatter(range(output_num), y_estimate[i].tolist(), color = 'red', label = 'Estimate')
+    #     plt.scatter(range(output_num), Y_test[i].tolist(), color = 'blue', label = 'RealData')
+    #     plt.legend()
+    #     plt.xlabel('Companies')
+    #     plt.ylabel('Adj Close')
+    #     plt.title('Test of Estimate Day %d' % i)
+    #     plt.savefig('./PNGresults/TestEstimate_day%d.png' % i)
 
 if __name__ == '__main__':
     backward()

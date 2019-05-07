@@ -12,6 +12,7 @@ import NN_forward
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 STEPS = 40000
 BATCH_SIZE = 70
@@ -70,9 +71,9 @@ def backward():
     np.savetxt('./weights/W2.csv', W2, delimiter = ",")
     np.savetxt('./weights/B1.csv', B1, delimiter = ",")
     np.savetxt('./weights/B2.csv', W2, delimiter = ",")
-    error_rate = [np.mean(abs(Y_test[i] - y_estimate[i]) / Y_test[i]) for i in range(Y_test.shape[0])]
+    error_rate = [abs(Y_test[i] - y_estimate[i]) for i in range(Y_test.shape[0])]
     plt.figure()
-    plt.scatter(range(len(error_rate)), error_rate)
+    sns.boxplot(x = list(range(1, len(error_rate) + 1)), y = error_rate)
     plt.xlabel('Days')
     plt.ylabel('Average Error Rate of Included Companies')
     plt.savefig('./PNGresults/ErrorRate.png')

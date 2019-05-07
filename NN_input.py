@@ -15,7 +15,7 @@ def get_data(sector = 'total', period = 5):
 #     Y = np.array([data[x,:].flatten() for x in range(period, data.shape[0])])
     X = np.array([data[x:x + period,:].flatten() for x in range(0, data.shape[0] - 5)]) # 5 day as features, total 749
     Y = np.array([data[x,:].flatten() for x in range(period, data.shape[0])]) # for each 5 day, use the 6th day as the label (result)
-    data = np.array(pd.read_csv('csvFilesTest/%s_Test.csv' % sector, index_col = 0)) # get data
+    data = np.array(pd.read_csv('csvFilesTest/%s_test.csv' % sector, index_col = 0)) # get data
     data = data[:,~np.isnan(data).any(axis = 0)]
     X_test = np.array([data[x:x + period,:].flatten() for x in range(0, data.shape[0] - 5)])
     Y_test = np.array([data[x,:].flatten() for x in range(period, data.shape[0])])

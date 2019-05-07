@@ -40,4 +40,4 @@ def forward(x, y, input_num, output_num, regularizer, hidden_num = 500):
     # Y1 x W2 -> Y
     # (749 * 500) x (500 * 198) -> (749 * 199) 
 
-    return y, w1, w2
+    return y, w1, w2, b1, b2

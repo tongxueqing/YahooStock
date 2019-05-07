@@ -10,6 +10,7 @@ def get_data(sector = 'total', period = 5):
     Every row of Y is 6th day data of all the companies, there are 749 rows
     '''
     data = pd.read_csv('csvFiles/sp500_%s_close.csv' % sector, index_col = 0) # get data
+    print(data.index)
     cols = data.columns
     filt = ~np.isnan(data).any(axis = 0)
     cols = np.array(cols)[filt]
@@ -28,5 +29,3 @@ if __name__ == '__main__':
     print(y.shape)
     print(xt.shape)
     print(yt.shape)
-    print(x)
-    print(xt)

@@ -14,8 +14,8 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-STEPS = 40000
-BATCH_SIZE = 70
+STEPS = 100000
+BATCH_SIZE = 30
 LEARNING_RATE_BASE = 0.001
 LEANING_RATE_DECAY = 0.999
 REGULARIZER = 0.01

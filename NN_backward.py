@@ -65,6 +65,7 @@ def backward():
                 print('After %d steps, loss is %f' % (i, loss_v))
         y_estimate = sess.run(y_hat, feed_dict = {x: X_test}) 
         W1, W2, B1, B2 = sess.run([w1, w2, b1, b2])
+    np.savetxt('./Estimate_y.csv', y_estimate, delimiter = ',')
     np.savetxt('./weights/W1.csv', W1, delimiter = ",")
     np.savetxt('./weights/W2.csv', W2, delimiter = ",")
     np.savetxt('./weights/B1.csv', B1, delimiter = ",")

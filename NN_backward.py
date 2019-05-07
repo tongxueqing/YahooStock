@@ -77,15 +77,15 @@ def backward():
     plt.xlabel('Days')
     plt.ylabel('Average Error Rate of Included Companies')
     plt.savefig('./PNGresults/ErrorRate.png')
-    # for i in range(Y_test.shape[0]):
-    #     plt.figure(figsize = (16, 9))
-    #     plt.scatter(range(output_num), y_estimate[i].tolist(), color = 'red', label = 'Estimate')
-    #     plt.scatter(range(output_num), Y_test[i].tolist(), color = 'blue', label = 'RealData')
-    #     plt.legend()
-    #     plt.xlabel('Companies')
-    #     plt.ylabel('Adj Close')
-    #     plt.title('Test of Estimate Day %d' % i)
-    #     plt.savefig('./PNGresults/TestEstimate_day%d.png' % i)
+    for i in range(Y_test.shape[0]):
+        plt.figure(figsize = (16, 9))
+        plt.scatter(range(output_num), y_estimate[i].tolist(), color = 'red', label = 'Estimate')
+        plt.scatter(range(output_num), Y_test[i].tolist(), color = 'blue', label = 'RealData')
+        plt.legend()
+        plt.xlabel('Companies')
+        plt.ylabel('Adj Close')
+        plt.title('Test of Estimate Day %d' % i)
+        plt.savefig('./PNGresults/TestEstimate_day%d.png' % i)
 
 if __name__ == '__main__':
     backward()

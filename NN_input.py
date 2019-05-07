@@ -13,16 +13,16 @@ def get_data(sector = 'total', period = 5):
     data = data[:,~np.isnan(data).any(axis = 0)] # remove NA
 #     X = np.array([data[x:x + period,:].flatten('F') for x in range(0, data.shape[0] - 5)])
 #     Y = np.array([data[x,:].flatten() for x in range(period, data.shape[0])])
-    X = np.array([data[x:x + period,:].flatten() for x in range(0, data.shape[0] - 5 - 1)]) # 5 day as features, total 749
-    X_test = np.array([data[x:x + period,:].flatten() for x in range(data.shape[0] - 6, data.shape[0] - 5)]) # use last 5 day to test
-    Y = np.array([data[x,:].flatten() for x in range(period, data.shape[0] - 1)]) # for each 5 day, use the 6th day as the label (result)
-    Y_test = np.array([data[x,:].flatten() for x in range(data.shape[0] - 1, data.shape[0])]) # test Y
-
+    X = np.array([data[x:x + period,:].flatten() for x in range(0, data.shape[0] - 5)]) # 5 day as features, total 749
+    Y = np.array([data[x,:].flatten() for x in range(period, data.shape[0])]) # for each 5 day, use the 6th day as the label (result)
+    data = np.array(pd.read_csv('csvFilesTest/%s_Test.csv' % sector, index_col = 0)) # get data
+    data = data[:,~np.isnan(data).any(axis = 0)]
+    X_test = np.array([data[x:x + period,:].flatten() for x in range(0, data.shape[0] - 5)])
+    Y_test = np.array([data[x,:].flatten() for x in range(period, data.shape[0])])
     return X, Y, X.shape[0], X.shape[1], Y.shape[1], X_test, Y_test
 
 if __name__ == '__main__':
     x, y, x0, x1, y1, xt, yt = get_data()
-    # x, y, x0, x1, y1, xt, yt = get_data('Energy_dj')
     print(x)
     print(y)
     print(x.shape)

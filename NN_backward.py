@@ -70,6 +70,7 @@ def backward():
     np.savetxt('./weights/W2.csv', W2, delimiter = ",")
     np.savetxt('./weights/B1.csv', B1, delimiter = ",")
     np.savetxt('./weights/B2.csv', W2, delimiter = ",")
+    # I think it is a small mistake.
     for i in range(Y_test.shape[0]):
         plt.figure(figsize = (16, 9))
         plt.scatter(range(output_num), y_estimate[i].tolist(), color = 'red', label = 'Estimate')

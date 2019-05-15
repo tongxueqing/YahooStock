@@ -28,6 +28,7 @@ def backward():
     x = tf.placeholder(tf.float32, shape = (None, input_num))
     y = tf.placeholder(tf.float32, shape = (None, output_num))
     # make FAKE inputs to build the pipeline and add the real input at last
+    #A placeholder is simply a variable that we will assign data to at a later date. It allows us to create our operations and build our computation graph, without needing the dat
 
     y_hat, w1, w2, b1, b2 = NN_forward.forward(x, y, input_num, output_num, REGULARIZER)
     # estimation of y, and the weight matrix and the using the FAKE variable

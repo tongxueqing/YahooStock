@@ -89,3 +89,6 @@ def backward():
 
 if __name__ == '__main__':
     backward()
+#Here, we make use of Tensorflow to create a very simple three-layer neural network. We feed the input data X and output data Y as training sample to train the model. Input data is a feature matrix X (749 * 995) and output data is a label matrix Y (749 * 199). Every row of X is 5 days data of 199 companies (5 * 199 = 995), there are 749 rows (749 days in total data).Every row of Y is 6th day data of all the companies, there are 749 rows. After training the model, we feed new input data into the model to predict the future stock prices of 199 companies.             
+
+#In addition, SP500 include 505 companies,but we can not get stock prices of all the companies in a certain period. So we just include 199 companies.
